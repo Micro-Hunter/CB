@@ -588,7 +588,7 @@ function genEmbed(){
     greeting: bot.greeting,
     faqs: bot.faqs,
     knowledge: knowledge,
-    apiKey: GROQ_API_KEY
+//using proxy
   }, null, 2);
   return '<!-- BotForge: ' + bot.name + ' -->\n<script>\n' + WIDGET_JS + '(' + cfg + ');\n<\/script>';
 }
@@ -714,12 +714,7 @@ async function sendMsg(){
   typ.innerHTML='<span class="td"></span><span class="td"></span><span class="td"></span>';
   var m=document.getElementById('cms');m.appendChild(typ);m.scrollTop=m.scrollHeight;
 
-  if(!GROQ_API_KEY || GROQ_API_KEY === 'Add_APIKEY_here'){
-    typ.remove();
-    addCMsg('⚠️ No API key set. Open index.html and replace Add_APIKEY_here with your Groq API key.','mb');
-    return;
-  }
-
+ 
   var kbData=kb.all;
   var sys='You are '+bot.name+', a helpful AI assistant.';
   if(kbData)sys+='\n\nKnowledge base:\n---\n'+kbData+'\n---\nAnswer from it. If not covered, say so.';
