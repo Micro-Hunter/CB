@@ -588,6 +588,7 @@ function genEmbed(){
     greeting: bot.greeting,
     faqs: bot.faqs,
     knowledge: knowledge,
+    apiKey: null  // Add this line (proxy doesn't need key)
 //using proxy
   }, null, 2);
   return '<!-- BotForge: ' + bot.name + ' -->\n<script>\n' + WIDGET_JS + '(' + cfg + ');\n<\/script>';
@@ -713,13 +714,18 @@ async function sendMsg(){
   var typ=document.createElement('div');typ.className='msg mb';
   typ.innerHTML='<span class="td"></span><span class="td"></span><span class="td"></span>';
   var m=document.getElementById('cms');m.appendChild(typ);m.scrollTop=m.scrollHeight;
-
+  // Around line 717, add this check:
+  if(!GROQ_API_URL){
+  typ.remove();
+  addCMsg('⚠️ Proxy not configured. Contact support.','mb');
+  return;
+  }
  
   var kbData=kb.all;
   var sys='You are '+bot.name+', a helpful AI assistant.';
   if(kbData)sys+='\n\nKnowledge base:\n---\n'+kbData+'\n---\nAnswer from it. If not covered, say so.';
   sys+='\n\nBe concise and friendly.';
-  var msgs=[{role:'system',content:sys}].concat(chatHist);
+  body:JSON.stringify({model:GROQ_MODEL,messages:msgs,max_tokens:500})
 
   try{
     var r=await fetch(GROQ_API_URL,{
