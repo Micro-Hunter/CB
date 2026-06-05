@@ -714,12 +714,6 @@ async function sendMsg(){
   var typ=document.createElement('div');typ.className='msg mb';
   typ.innerHTML='<span class="td"></span><span class="td"></span><span class="td"></span>';
   var m=document.getElementById('cms');m.appendChild(typ);m.scrollTop=m.scrollHeight;
-  // Around line 717, add this check:
-  if(!GROQ_API_URL){
-  typ.remove();
-  addCMsg('⚠️ Proxy not configured. Contact support.','mb');
-  return;
-  }
  
   var kbData=kb.all;
   var sys='You are '+bot.name+', a helpful AI assistant.';
