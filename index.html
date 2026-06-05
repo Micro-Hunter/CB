@@ -719,10 +719,14 @@ async function sendMsg(){
   var sys='You are '+bot.name+', a helpful AI assistant.';
   if(kbData)sys+='\n\nKnowledge base:\n---\n'+kbData+'\n---\nAnswer from it. If not covered, say so.';
   sys+='\n\nBe concise and friendly.';
-  body:JSON.stringify({model:GROQ_MODEL,messages:msgs,max_tokens:500})
+  var msgs=[{role:'system',content:sys}].concat(chatHist);  // ← ADD THIS LINE
 
   try{
     var r=await fetch(GROQ_API_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:msgs,max_tokens:500})
+    });
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({messages:msgs,max_tokens:500})
