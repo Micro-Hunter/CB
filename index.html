@@ -727,10 +727,7 @@ async function sendMsg(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({messages:msgs,max_tokens:500})
     });
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:msgs,max_tokens:500})
-    });
+
     var d=await r.json();
     var rep=(d.choices&&d.choices[0])?d.choices[0].message.content:"I'm having trouble responding.";
     chatHist.push({role:'assistant',content:rep});typ.remove();addCMsg(rep,'mb');
