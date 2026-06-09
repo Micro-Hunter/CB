@@ -526,7 +526,7 @@ input,textarea{font-family:var(--ff-body);outline:none}
 
 <script>
 
-const GROQ_API_URL = "https://botforge-proxy-git-main-abdullah-mir-s-projects.vercel.app/api/chat";
+const GROQ_API_URL = "https://botforge-proxy-4tzwzp756-abdullah-mir-s-projects.vercel.app/api/chat";
 const GROQ_MODEL   = "llama3-70b-8192";
 
 // ── WIDGET ENGINE (self-contained, injected into embed code) ──
@@ -557,7 +557,7 @@ function send(){
   if(C.knowledge)sys+='\n\nKnowledge base:\n---\n'+C.knowledge+'\n---\nAnswer from it. If not covered, say so honestly.';
   sys+='\n\nBe concise and friendly. 1-3 sentences.';
   var msgs=[{role:'system',content:sys}].concat(hist);
-  fetch('https://botforge-proxy-git-main-abdullah-mir-s-projects.vercel.app/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'llama3-70b-8192',messages:msgs,max_tokens:500})})
+  fetch('https://botforge-proxy-4tzwzp756-abdullah-mir-s-projects.vercel.app/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'llama3-70b-8192',messages:msgs,max_tokens:500})})
   .then(function(r){return r.json();})
   .then(function(d){var rep=(d.choices&&d.choices[0])?d.choices[0].message.content:'Sorry, I could not respond.';hist.push({role:'assistant',content:rep});typ.remove();addMsg(rep,'bot');})
   .catch(function(){typ.remove();addMsg('Connection error. Please try again.','bot');});
